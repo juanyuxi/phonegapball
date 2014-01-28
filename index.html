@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas</title>
+    <script src="game.enums.js"></script>
+    <script src="game.canvas.js"></script>
+    <script src="game.obstacle.js"></script>
+    <script src="game.curve.js"></script>
+    <script src="game.ball.js"></script>
+	<script src="game.cell.js"></script>
+	<script src="game.board.js"></script>
+	<script src="game.initialContainer.js"></script>	
+	<style>
+		* {
+			margin: 0;
+            overflow: hidden;
+		}
+	</style>
+</head>
+<body>	
+    <!--audio loop="loop" autoplay="autoplay" controls="controls" hidden="true">  
+			<source src="ball.mp3" type="audio/mp3">
+		 </audio-->
+	<script>
+		var canvas = new game.Canvas();
+		var board  = new game.Board(5, 5, canvas.getContext());
+		var initialContainer = new game.initialContainer(5, canvas.getContext());
+
+        var panelCell = null;
+
+        board.addObstacle(0);
+        board.addObstacle(4);
+        board.addObstacle(8);
+        board.addObstacle(12);
+        board.addObstacle(16);
+
+        /*board.addCurve(2,  game.Orientation.TOP_RIGHT);
+        board.addCurve(11, game.Orientation.TOP_LEFT);
+        board.addCurve(12, game.Orientation.BOTTOM_RIGHT);
+        board.addCurve(21, game.Orientation.BOTTOM_LEFT);*/
+
+        initialContainer.addCurve(0,game.Orientation.TOP_RIGHT);
+        initialContainer.addCurve(1,game.Orientation.TOP_LEFT);
+        initialContainer.addCurve(2,game.Orientation.BOTTOM_RIGHT);
+        initialContainer.addCurve(3,game.Orientation.BOTTOM_LEFT);
+        initialContainer.addCurve(4,game.Orientation.BOTTOM_LEFT);
+        
+        ball = board.addBall(0);
+
+		canvas.onResize = function (canvasWidth, canvasHeight) {
+			
+			var marginTop = 10;
+			var marginLeft = 10;
+
+			var boardWidth = Math.min(canvasWidth, canvasHeight) - (marginLeft * 2);
+			
+			var xPosition = Math.floor((canvasWidth - boardWidth) / 2);
+
+			board.resize(xPosition, marginTop, boardWidth, boardWidth);
+
+			var containerXPos = xPosition;
+			var containerYPos = boardWidth + 30;
+			initialContainer.resize(containerXPos, containerYPos, boardWidth, boardWidth);
+		};
+
+		intervalo = window.setInterval(function () { gameLoop() }, 1000 / 60);
+
+		function gameLoop() {
+		    canvas.getContext().canvas.width = canvas.getContext().canvas.width;
+		    canvas.onResize(canvas.getContext().canvas.width, canvas.getContext().canvas.height);
+		    //ball.paint(true);
+
+		    if (panelCell !== null) {
+		        panelCell.paint(true);
+		    } 
+		};
+
+    </script>
+</body>
+</html>
