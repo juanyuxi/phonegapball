@@ -17,7 +17,6 @@
         Juan Grajales 
     </author>
 	
-	<gap:platform name="android" />
-	<gap:plugin name="com.adobe.plugins.fastcanvas" />
+	<gap:platform name="android" />	
 
 </widget>
