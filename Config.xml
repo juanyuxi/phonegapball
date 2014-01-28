@@ -18,5 +18,6 @@
     </author>
 	
 	<gap:platform name="android" />
+	<gap:plugin name="com.adobe.plugins.fastcanvas" />
 
 </widget>
